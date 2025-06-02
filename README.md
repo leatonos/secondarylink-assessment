@@ -29,7 +29,7 @@ You are expected to create at least **three components**:
 #### 3. Admin Edit View
 
 - Create an API function to fetch and edit a **single data point** from `backend/data/funds_data.json`.
-- Allow the admin to **edit** or **delete** the data.
+- Allow the admin to **edit** and **delete** the data.
 - Automatically save changes when the admin finishes editing.
 - Design the view using your best UI/UX judgment.
 - You may implement this as a **separate page** or a **modal/dialog** (e.g., MatDialog).
