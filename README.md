@@ -33,3 +33,21 @@ You are expected to create at least **three components**:
 - Automatically save changes when the admin finishes editing.
 - Design the view using your best UI/UX judgment.
 - You may implement this as a **separate page** or a **modal/dialog** (e.g., MatDialog).
+
+---
+
+### Submission
+
+- Leave following information in the [Notes](#notes) sections below
+    - Your name
+    - Your email
+    - Any message you want us to consider regarding to this project.
+- Remove all `node_modules` folder
+- Zip the project folder and send your submissions
+    - To: jonathanc@seclink.com
+    - CC: team@seclink.com
+
+### Notes
+- Name:
+- Email:
+- Message: 
