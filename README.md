@@ -12,6 +12,8 @@ You are expected to create at least **three components**:
 
 - Create an API function that fetches data from `backend/data/funds_data.json`.
 - Display the data in a table format.
+- Create Filters for each property in the dataset to be able to get select values.
+- Allow the admin to sort the dataset in the table; organizing by least to greatest, greatest to least.. etc
 - Style the table using your best UI/UX judgment.
 - When clicking on the **Name** of a data point, navigate to the **User Facing Data View**.
 - Include an edit icon (e.g., a pencil) that navigates to the **Admin Edit View**.
