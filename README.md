@@ -44,10 +44,11 @@ You are expected to create at least **three components**:
     - Your name
     - Your email
     - Any message you want us to consider regarding to this project.
-- Remove all `node_modules` folder
-- Zip the project folder and send your submissions
-    - To: jonathanc@seclink.com
-    - CC: team@seclink.com
+
+1. Clone this repository
+2. Create your own private GitLab/GitHub repository
+3. Push your solution there
+4. Send us the repository link
 
 ### Notes
 - Name:
