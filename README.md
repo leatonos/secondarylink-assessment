@@ -1,6 +1,6 @@
 ### ✅ TODO
 
-We are evaluating you based on your front-end and/or back-end capabilities. **Failure to complete one side fully does not necessarily result in disqualification.** Please complete the task to the best of your abilities.
+We are evaluating you based on your front-end and back-end capabilities. Please complete the task to the best of your abilities.
 
 #### Components to Implement
 
