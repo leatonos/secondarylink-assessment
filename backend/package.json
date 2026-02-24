@@ -12,10 +12,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.1.0",
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.2",
     "@types/node": "^22.15.28",
     "ts-node-dev": "^2.0.0",

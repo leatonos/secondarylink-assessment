@@ -1,0 +1,43 @@
+<!-- Loading/Error -->
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<!-- Page Size Control -->
+<div *ngIf="!loading && !error" style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+  <p> Total funds: {{funds.length}}</p>
+  <label for="pageSizeSelect">Rows per page:</label>
+  <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange($any($event.target).value)">
+    <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+  </select>
+</div>
+
+<!-- Table -->
+<table *ngIf="!loading && !error">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Fund Size</th>
+      <th>Currency</th>
+      <th>Vintage</th>
+      <th>Strategies</th>
+      <th>Managers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let fund of paginatedFunds">
+      <td>{{ fund.name }}</td>
+      <td>{{ fund.fundSize }}</td>
+      <td>{{ fund.currency }}</td>
+      <td>{{ fund.vintage }}</td>
+      <td>{{ fund.strategies.join(', ') }}</td>
+      <td>{{ fund.managers.join(', ') }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination Controls -->
+<div *ngIf="!loading && !error" style="margin-top: 1rem; display: flex; gap: 1rem; align-items: center;">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} / {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
