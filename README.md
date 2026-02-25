@@ -51,6 +51,6 @@ You are expected to create at least **three components**:
 4. Send us the repository link
 
 ### Notes
-- Name:
-- Email:
-- Message: 
+- Name: Pedro Fernando de Mattos Baptista
+- Email: pedrofmattosb@gmail.com
+- Message: Thanks so much for the opportunity so far, 
