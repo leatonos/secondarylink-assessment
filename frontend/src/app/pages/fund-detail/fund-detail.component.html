@@ -1,47 +1,58 @@
-<!-- src/app/pages/fund-detail/fund-detail.component.html -->
-
 <!-- Loading / Error -->
-<div *ngIf="loading" style="font-style: italic;">Loading fund...</div>
-<div *ngIf="error" style="color: red;">{{ error }}</div>
+<div *ngIf="loading" class="loading">Loading fund...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
 
 <!-- Fund Details -->
-<div *ngIf="!loading && fund">
-  <h2>{{ fund.name }}</h2>
-  <p>{{ fund.description }}</p>
+<div *ngIf="!loading && fund" class="fund-detail-container">
+
+  <!-- Back Button -->
+  <button class="back-btn" (click)="goBack()">Back</button>
+
+
+  <!-- Fund Name -->
+  <h2 class="fund-name">{{ fund.name }}</h2>
+
+  <!-- Fund Description -->
+  <div class="fund-description">
+    <p>{{ fund.description }}</p>
+  </div>
 
   <!-- Basic Fund Info -->
-  <table style="margin-top: 1rem; border-collapse: collapse;">
+<table class="fund-info">
+  <tbody>
     <tr>
-      <th style="text-align: left; padding-right: 1rem;">Fund Size</th>
+      <th>Fund Size</th>
       <td>{{ fund.fundSize }}</td>
     </tr>
     <tr>
-      <th style="text-align: left; padding-right: 1rem;">Currency</th>
+      <th>Currency</th>
       <td>{{ fund.currency }}</td>
     </tr>
     <tr>
-      <th style="text-align: left; padding-right: 1rem;">Vintage</th>
+      <th>Vintage</th>
       <td>{{ fund.vintage }}</td>
     </tr>
     <tr>
-      <th style="text-align: left; padding-right: 1rem;">Geographies</th>
+      <th>Geographies</th>
       <td>{{ fund.geographies.join(', ') }}</td>
     </tr>
-  </table>
+  </tbody>
+</table>
 
   <!-- Strategies -->
-  <div style="margin-top: 1rem;">
+  <div class="fund-section">
     <h4>Strategies</h4>
-    <ul>
+    <ul class="list">
       <li *ngFor="let strategy of fund.strategies">{{ strategy }}</li>
     </ul>
   </div>
 
   <!-- Managers -->
-  <div style="margin-top: 1rem;">
+  <div class="fund-section">
     <h4>Managers</h4>
-    <ul>
+    <ul class="list">
       <li *ngFor="let manager of fund.managers">{{ manager }}</li>
     </ul>
   </div>
+
 </div>

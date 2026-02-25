@@ -1,0 +1,157 @@
+/* =========================================
+   COLOR VARIABLES
+========================================= */
+
+$primary-dark: #00324b;
+$primary-accent: #0065A5;
+$white: #ffffff;
+$light-bg: #f4f8fb;
+$border-color: #d6e2ec;
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.creator-container {
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $primary-dark;
+}
+
+.required {
+  color: $primary-accent;
+}
+
+/* =========================================
+   INPUTS / TEXTAREA
+========================================= */
+
+input,
+textarea {
+  padding: 0.65rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid $border-color;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  outline: none;
+  background: $white;
+}
+
+input:focus,
+textarea:focus {
+  border-color: $primary-accent;
+  box-shadow: 0 0 0 3px rgba(0, 101, 165, 0.15);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* =========================================
+   GRID LAYOUT
+========================================= */
+
+.grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.error-msg {
+  font-size: 0.8rem;
+  color: #d32f2f;
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: $primary-accent;
+  color: $white;
+  border: none;
+  padding: 0.6rem 1.3rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: $primary-dark;
+}
+
+.btn-primary:disabled {
+  background: #9fb9cc;
+  cursor: not-allowed;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: transparent;
+  border: 2px solid $primary-dark;
+  color: $primary-dark;
+  padding: 0.55rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: $primary-dark;
+  color: $white;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .grid-row {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}

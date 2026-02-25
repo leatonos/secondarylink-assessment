@@ -21,6 +21,7 @@ export class FundsTableComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'asc';
 
   // Filters
+  filterName: string = '';
   filterCurrency: string = '';
   filterVintage: string = '';
   filterStrategy: string = '';
@@ -69,18 +70,29 @@ export class FundsTableComponent implements OnInit {
   let result = [...this.funds];
 
   // Filtering Logic
+
+  // Name filter
+  if (this.filterName) {
+    result = result.filter(f =>
+      f.name.toLowerCase().includes(this.filterName.toLowerCase())
+    );
+  }
+
+  // Currency filter
   if (this.filterCurrency) {
     result = result.filter(f =>
       f.currency.toLowerCase().includes(this.filterCurrency.toLowerCase())
     );
   }
 
+  // Vintage filter
   if (this.filterVintage) {
     result = result.filter(f =>
       f.vintage.toString().includes(this.filterVintage)
     );
   }
 
+  // Strategy filter
   if (this.filterStrategy) {
     result = result.filter(f =>
       f.strategies.some(s =>
@@ -89,6 +101,7 @@ export class FundsTableComponent implements OnInit {
     );
   }
 
+  // Manager filter
   if (this.filterManager) {
     result = result.filter(f =>
       f.managers.some(m =>

@@ -3,27 +3,28 @@
 <div *ngIf="error">{{ error }}</div>
 
 <!-- Page Size Control -->
-<div *ngIf="!loading && !error" style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-  <p> Total funds: {{funds.length}}</p>
-  <label for="pageSizeSelect">Rows per page:</label>
-  <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange($any($event.target).value)">
-    <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
-  </select>
-</div>
+<div *ngIf="!loading && !error">
 
-<div style="display:flex; gap:1rem; margin-bottom:1rem; flex-wrap:wrap;">
+  <div class="controls">
+    <p>Total funds: {{ funds.length }}</p>
 
-  <input placeholder="Filter Currency"
-         [(ngModel)]="filterCurrency" />
+    <label for="pageSizeSelect">Rows per page:</label>
+    <select id="pageSizeSelect"
+            [value]="pageSize"
+            (change)="onPageSizeChange($any($event.target).value)">
+      <option *ngFor="let size of pageSizeOptions" [value]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
 
-  <input placeholder="Filter Vintage"
-         [(ngModel)]="filterVintage" />
-
-  <input placeholder="Filter Strategy"
-         [(ngModel)]="filterStrategy" />
-
-  <input placeholder="Filter Manager"
-         [(ngModel)]="filterManager" />
+  <div class="filters">
+    <input placeholder="Search by Name" [(ngModel)]="filterName" (ngModelChange)="currentPage = 1"/>
+    <input placeholder="Filter Currency" [(ngModel)]="filterCurrency" />
+    <input placeholder="Filter Vintage" [(ngModel)]="filterVintage" />
+    <input placeholder="Filter Strategy" [(ngModel)]="filterStrategy" />
+    <input placeholder="Filter Manager" [(ngModel)]="filterManager" />
+  </div>
 
 </div>
 
@@ -32,40 +33,42 @@
 </button>
 
 <!-- Table -->
-<table *ngIf="!loading && !error">
-  <thead>
-    <tr>
-      <th (click)="sortBy('name')" style="cursor:pointer">Name</th>
-      <th (click)="sortBy('fundSize')" style="cursor:pointer">Fund Size</th>
-      <th>Currency</th>
-      <th>Vintage</th>
-      <th>Strategies</th>
-      <th>Managers</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let fund of paginatedFunds">
-      <td><a href="fund/{{ fund.name }}">{{ fund.name }}</a></td>
-      <td>{{ fund.fundSize }}</td>
-      <td>{{ fund.currency }}</td>
-      <td>{{ fund.vintage }}</td>
-      <td>{{ fund.strategies.join(', ') }}</td>
-      <td>{{ fund.managers.join(', ') }}</td>
-      <td>
-        <button class="icon-btn edit-btn" (click)="selectFundForEdit(fund)">
-          <img src="imgs/edit.svg" alt="Edit" width="20" height="20">
-        </button>
-        <button class="icon-btn edit-btn" (click)="confirmDelete(fund)">
-          <img src="imgs/delete.svg" alt="Edit" width="20" height="20">
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+  <table *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th (click)="sortBy('name')" style="cursor:pointer">Name</th>
+        <th (click)="sortBy('fundSize')" style="cursor:pointer">Fund Size</th>
+        <th>Currency</th>
+        <th>Vintage</th>
+        <th>Strategies</th>
+        <th>Managers</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fund of paginatedFunds">
+        <td><a href="fund/{{ fund.name }}">{{ fund.name }}</a></td>
+        <td>{{ fund.fundSize }}</td>
+        <td>{{ fund.currency }}</td>
+        <td>{{ fund.vintage }}</td>
+        <td>{{ fund.strategies.join(', ') }}</td>
+        <td>{{ fund.managers.join(', ') }}</td>
+        <td>
+          <button class="icon-btn edit-btn" (click)="selectFundForEdit(fund)">
+            <img src="imgs/edit.svg" alt="Edit" width="20" height="20">
+          </button>
+          <button class="icon-btn edit-btn" (click)="confirmDelete(fund)">
+            <img src="imgs/delete.svg" alt="Edit" width="20" height="20">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- Pagination Controls -->
-<div *ngIf="!loading && !error" style="margin-top: 1rem; display: flex; gap: 1rem; align-items: center;">
+<div *ngIf="!loading && !error" class="pagination">
   <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
   <span>Page {{ currentPage }} / {{ totalPages }}</span>
   <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>

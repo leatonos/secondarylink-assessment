@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import type { Fund } from '../../models/fund.model';
 
@@ -18,7 +19,11 @@ export class FundDetailComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     // 1. Get the name from the URL
@@ -50,5 +55,9 @@ export class FundDetailComponent implements OnInit {
           console.error(err);
         }
       });
+  }
+
+   goBack(): void {
+    this.location.back();
   }
 }

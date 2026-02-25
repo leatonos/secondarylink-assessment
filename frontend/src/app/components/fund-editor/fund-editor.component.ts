@@ -10,13 +10,13 @@ import { Output, EventEmitter } from '@angular/core';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './fund-editor.component.html',
-  styleUrls: ['./fund-editor.component.scss'], // corrected
+  styleUrls: ['./fund-editor.component.scss']
 })
 export class FundEditorComponent implements OnChanges {
   @Input() fund: Fund | null = null;
   fundForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { // inject HttpClient
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.fundForm = this.fb.group({
       name: ['', Validators.required],
       currency: ['', Validators.required],

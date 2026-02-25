@@ -1,43 +1,55 @@
-<div class="editor-container" *ngIf="fund">
-  <h3>Editing: {{ fund.name }}</h3>
-
+<div class="creator-container">
   <form [formGroup]="fundForm" (ngSubmit)="save()">
-    <div class="grid-row">
-      <label>Fund Name:
-        <input type="text" formControlName="name">
-      </label>
 
-      <label>Currency:
-        <input type="text" formControlName="currency">
-      </label>
+    <div class="form-group">
+      <label for="name">Fund Name <span class="required">*</span></label>
+      <input id="name" type="text" formControlName="name" placeholder="e.g. KIM Fund 4">
+      <div class="error-msg" *ngIf="fundForm.get('name')?.touched && fundForm.get('name')?.invalid">
+        Name is required.
+      </div>
     </div>
 
     <div class="grid-row">
-      <label>Fund Size (M):
-        <input type="number" formControlName="fundSize">
-      </label>
+      <div class="form-group">
+        <label for="currency">Currency</label>
+        <input id="currency" type="text" formControlName="currency" placeholder="USD">
+      </div>
 
-      <label>Vintage:
-        <input type="number" formControlName="vintage">
-      </label>
+      <div class="form-group">
+        <label for="fundSize">Fund Size (Millions)</label>
+        <input id="fundSize" type="number" formControlName="fundSize">
+      </div>
     </div>
 
-    <label>Strategies (comma separated):
-      <input type="text" formControlName="strategies">
-    </label>
+    <div class="grid-row">
+      <div class="form-group">
+        <label for="vintage">Vintage Year</label>
+        <input id="vintage" type="number" formControlName="vintage">
+      </div>
+    </div>
 
-    <label>Geographies (comma separated):
-      <input type="text" formControlName="geographies">
-    </label>
+    <div class="form-group">
+      <label for="strategies">Strategies (comma separated)</label>
+      <input id="strategies" type="text" formControlName="strategies" placeholder="Hedge Fund, Private Equity">
+    </div>
 
-    <label>Managers (comma separated):
-      <input type="text" formControlName="managers">
-    </label>
+    <div class="form-group">
+      <label for="geographies">Geographies (comma separated)</label>
+      <input id="geographies" type="text" formControlName="geographies" placeholder="Global, Europe, USA">
+    </div>
 
-    <label>Description:
-      <textarea formControlName="description" rows="4"></textarea>
-    </label>
+    <div class="form-group">
+      <label for="managers">Managers (comma separated)</label>
+      <input id="managers" type="text" formControlName="managers" placeholder="John Doe, Jane Smith">
+    </div>
 
-    <button type="submit" [disabled]="fundForm.invalid">Update Fund</button>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" rows="3" placeholder="Enter fund details..."></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary" [disabled]="fundForm.invalid">Save Changes</button>
+    </div>
   </form>
 </div>

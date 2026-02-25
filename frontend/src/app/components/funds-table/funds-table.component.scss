@@ -1,41 +1,124 @@
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5); // Dim the background
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* =========================================
+   COLOR VARIABLES
+========================================= */
+
+$primary-dark: #00324b;
+$primary-accent: #0065A5;
+$white: #ffffff;
+$light-bg: #f4f8fb;
+$border-color: #d6e2ec;
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
 }
 
-.modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 50, 75, 0.08);
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+table {
+  width: 100%;
+  min-width: 1200px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: $white;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  line-height: 1;
+thead {
+  background: $primary-dark;
+  color: $white;
+}
+
+thead th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+thead th:hover {
+  background: $primary-accent;
+}
+
+tbody td {
+  padding: 1rem 1rem;   
+  border-bottom: 1px solid $border-color;
+  font-size: 0.95rem;
+  line-height: 1.5; 
+}
+
+tbody tr {
+  transition: 0.2s ease;
+}
+
+tbody tr:hover {
+  background: rgba(0, 101, 165, 0.06);
+}
+
+th, td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  vertical-align: top;   // 👈 makes multi-line cells look clean
+}
+
+/* Links inside table */
+table a {
+  color: $primary-accent;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+table a:hover {
+  text-decoration: underline;
+}
+
+thead th:nth-child(1),
+tbody td:nth-child(1) {
+  width: 15%;   // Name
+}
+
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+  width: 10%;   // Fund Size
+}
+
+thead th:nth-child(3),
+tbody td:nth-child(3) {
+  width: 8%;    // Currency
+}
+
+thead th:nth-child(4),
+tbody td:nth-child(4) {
+  width: 8%;    // Vintage
+}
+
+thead th:nth-child(5),
+tbody td:nth-child(5) {
+  width: 25%;   // Strategies (WIDER)
+}
+
+thead th:nth-child(6),
+tbody td:nth-child(6) {
+  width: 25%;   // Managers (WIDER)
+}
+
+thead th:nth-child(7),
+tbody td:nth-child(7) {
+  width: 9%;    // Action buttons
 }
 
 .icon-btn {
