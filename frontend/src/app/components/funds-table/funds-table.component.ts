@@ -1,9 +1,8 @@
-// src/app/pages/funds-table/funds-table.component.ts
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import type { Fund } from '../../models/fund.model';
-
+import { FormsModule } from '@angular/forms';
 import { FundEditorComponent } from '../fund-editor/fund-editor.component';
 import { FundDeleteComponent } from '../fund-delete/fund-delete.component';
 import { FundCreateComponent } from '../fund-create/fund-create.component';
@@ -11,16 +10,28 @@ import { FundCreateComponent } from '../fund-create/fund-create.component';
 @Component({
   selector: 'app-funds-table',
   standalone: true,
-  imports: [CommonModule,FundEditorComponent,FundDeleteComponent,FundCreateComponent],
+  imports: [CommonModule,FormsModule,FundEditorComponent,FundDeleteComponent,FundCreateComponent],
   templateUrl: './funds-table.component.html',
   styleUrl: './funds-table.component.scss'
 })
 export class FundsTableComponent implements OnInit {
 
+  // Sorting
+  sortField: 'name' | 'fundSize' | null = null;
+  sortDirection: 'asc' | 'desc' = 'asc';
+
+  // Filters
+  filterCurrency: string = '';
+  filterVintage: string = '';
+  filterStrategy: string = '';
+  filterManager: string = '';
+
+  //Funds actions
   selectedFund: Fund | null = null;
   fundToDelete: Fund | null = null;
   showCreator = false;
 
+  //Table States
   funds: Fund[] = [];
   loading = true;
   error: string | null = null;
@@ -55,9 +66,68 @@ export class FundsTableComponent implements OnInit {
   }
 
   get paginatedFunds(): Fund[] {
-    const start = (this.currentPage - 1) * this.pageSize;
-    return this.funds.slice(start, start + this.pageSize);
+  let result = [...this.funds];
+
+  // Filtering Logic
+  if (this.filterCurrency) {
+    result = result.filter(f =>
+      f.currency.toLowerCase().includes(this.filterCurrency.toLowerCase())
+    );
   }
+
+  if (this.filterVintage) {
+    result = result.filter(f =>
+      f.vintage.toString().includes(this.filterVintage)
+    );
+  }
+
+  if (this.filterStrategy) {
+    result = result.filter(f =>
+      f.strategies.some(s =>
+        s.toLowerCase().includes(this.filterStrategy.toLowerCase())
+      )
+    );
+  }
+
+  if (this.filterManager) {
+    result = result.filter(f =>
+      f.managers.some(m =>
+        m.toLowerCase().includes(this.filterManager.toLowerCase())
+      )
+    );
+  }
+
+  // Sorting logic
+  if (this.sortField) {
+    result.sort((a, b) => {
+      const valueA = a[this.sortField!];
+      const valueB = b[this.sortField!];
+
+      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  // Updates total pages
+  this.totalPages = Math.ceil(result.length / this.pageSize) || 1;
+  if (this.currentPage > this.totalPages) {
+    this.currentPage = this.totalPages;
+  }
+
+  // Pagination
+  const start = (this.currentPage - 1) * this.pageSize;
+  return result.slice(start, start + this.pageSize);
+}
+
+sortBy(field: 'name' | 'fundSize'): void {
+  if (this.sortField === field) {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+  } else {
+    this.sortField = field;
+    this.sortDirection = 'asc';
+  }
+}
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) this.currentPage++;
@@ -124,6 +194,7 @@ export class FundsTableComponent implements OnInit {
         next: () => {
           // Refresh the local list so the deleted fund disappears
           this.funds = this.funds.filter(f => f.name !== this.fundToDelete?.name);
+          this.calculateTotalPages();
           this.cancelDelete(); // Close modal
           console.log('Fund deleted successfully');
         },
@@ -134,7 +205,6 @@ export class FundsTableComponent implements OnInit {
       });
   }
 
-
   // Create Fund Logic
 
   executeCreate(newFund: Fund): void {
@@ -143,6 +213,7 @@ export class FundsTableComponent implements OnInit {
         next: (createdFund) => {
           // 1. Add the new fund to the local list
           this.funds = [...this.funds, createdFund];
+          this.calculateTotalPages();
           // 2. Close modal
           this.showCreator = false;
           console.log('Fund created successfully');

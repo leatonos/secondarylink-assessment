@@ -11,6 +11,22 @@
   </select>
 </div>
 
+<div style="display:flex; gap:1rem; margin-bottom:1rem; flex-wrap:wrap;">
+
+  <input placeholder="Filter Currency"
+         [(ngModel)]="filterCurrency" />
+
+  <input placeholder="Filter Vintage"
+         [(ngModel)]="filterVintage" />
+
+  <input placeholder="Filter Strategy"
+         [(ngModel)]="filterStrategy" />
+
+  <input placeholder="Filter Manager"
+         [(ngModel)]="filterManager" />
+
+</div>
+
 <button class="create-btn" (click)="showCreator = true">
   + Create New Fund
 </button>
@@ -19,8 +35,8 @@
 <table *ngIf="!loading && !error">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Fund Size</th>
+      <th (click)="sortBy('name')" style="cursor:pointer">Name</th>
+      <th (click)="sortBy('fundSize')" style="cursor:pointer">Fund Size</th>
       <th>Currency</th>
       <th>Vintage</th>
       <th>Strategies</th>
