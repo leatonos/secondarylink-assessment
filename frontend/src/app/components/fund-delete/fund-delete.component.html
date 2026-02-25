@@ -1,0 +1,10 @@
+ <div class="confirm-container">
+      <h3>Confirm Deletion</h3>
+      <p>Are you sure you want to delete fund <strong>{{ fundName }}</strong>?</p>
+      <p class="warning-text">This action cannot be undone.</p>
+      
+      <div class="actions">
+        <button class="cancel-btn" (click)="onCancel.emit()">Cancel</button>
+        <button class="delete-btn" (click)="onConfirm.emit()">Delete Fund</button>
+      </div>
+    </div>

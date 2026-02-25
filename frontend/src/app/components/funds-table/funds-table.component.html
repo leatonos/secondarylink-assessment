@@ -11,6 +11,10 @@
   </select>
 </div>
 
+<button class="create-btn" (click)="showCreator = true">
+  + Create New Fund
+</button>
+
 <!-- Table -->
 <table *ngIf="!loading && !error">
   <thead>
@@ -21,16 +25,25 @@
       <th>Vintage</th>
       <th>Strategies</th>
       <th>Managers</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let fund of paginatedFunds">
-      <td>{{ fund.name }}</td>
+      <td><a href="fund/{{ fund.name }}">{{ fund.name }}</a></td>
       <td>{{ fund.fundSize }}</td>
       <td>{{ fund.currency }}</td>
       <td>{{ fund.vintage }}</td>
       <td>{{ fund.strategies.join(', ') }}</td>
       <td>{{ fund.managers.join(', ') }}</td>
+      <td>
+        <button class="icon-btn edit-btn" (click)="selectFundForEdit(fund)">
+          <img src="imgs/edit.svg" alt="Edit" width="20" height="20">
+        </button>
+        <button class="icon-btn edit-btn" (click)="confirmDelete(fund)">
+          <img src="imgs/delete.svg" alt="Edit" width="20" height="20">
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -40,4 +53,42 @@
   <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
   <span>Page {{ currentPage }} / {{ totalPages }}</span>
   <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
+
+<!-- Editor Modal -->
+<div class="modal-backdrop" *ngIf="selectedFund" (click)="closeModal()">
+   <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+         <h2>Edit Fund</h2>
+         <button class="close-btn" (click)="closeModal()">&times;</button>
+      </div>
+      <app-fund-editor [fund]="selectedFund" (fundUpdated)="onFundUpdated($event)"></app-fund-editor>
+   </div>
+</div>
+
+<!-- Creator Modal -->
+<div class="modal-backdrop" *ngIf="showCreator" (click)="showCreator = false">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Create New Fund</h2>
+      <button class="close-btn" (click)="showCreator = false">&times;</button>
+    </div>
+    
+    <app-fund-creator 
+      (onSave)="executeCreate($event)" 
+      (onCancel)="showCreator = false">
+    </app-fund-creator>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal-backdrop" *ngIf="fundToDelete" (click)="cancelDelete()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <app-delete-confirm 
+      [fundName]="fundToDelete.name" 
+      (onConfirm)="executeDelete()" 
+      (onCancel)="cancelDelete()">
+    </app-delete-confirm>
+  </div>
 </div>

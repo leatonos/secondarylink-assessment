@@ -4,14 +4,22 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import type { Fund } from '../../models/fund.model';
 
+import { FundEditorComponent } from '../fund-editor/fund-editor.component';
+import { FundDeleteComponent } from '../fund-delete/fund-delete.component';
+import { FundCreateComponent } from '../fund-create/fund-create.component';
+
 @Component({
   selector: 'app-funds-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FundEditorComponent,FundDeleteComponent,FundCreateComponent],
   templateUrl: './funds-table.component.html',
   styleUrl: './funds-table.component.scss'
 })
 export class FundsTableComponent implements OnInit {
+
+  selectedFund: Fund | null = null;
+  fundToDelete: Fund | null = null;
+  showCreator = false;
 
   funds: Fund[] = [];
   loading = true;
@@ -74,5 +82,75 @@ export class FundsTableComponent implements OnInit {
     if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
     }
+  }
+
+  
+  // Update Fund Logic
+
+  selectFundForEdit(fund: Fund): void {
+    this.selectedFund = fund;
+  }
+
+  closeModal(): void {
+    this.selectedFund = null;
+  }
+
+  onFundUpdated(updatedFund: Fund) {
+    console.log('Something got updated!')
+    this.closeModal()
+  const index = this.funds.findIndex(f => f.name === updatedFund.name);
+  if (index !== -1) {
+    this.funds[index] = updatedFund; // Angular detects the change
+  }
+}
+
+
+  // Delete Fund Logic
+
+  confirmDelete(fund: Fund): void {
+    this.fundToDelete = fund;
+  }
+
+  cancelDelete(): void {
+    this.fundToDelete = null;
+  }
+
+  executeDelete(): void {
+    if (!this.fundToDelete) return;
+
+    const encodedName = encodeURIComponent(this.fundToDelete.name);
+    this.http.delete(`http://localhost:3000/api/funds/${encodedName}`)
+      .subscribe({
+        next: () => {
+          // Refresh the local list so the deleted fund disappears
+          this.funds = this.funds.filter(f => f.name !== this.fundToDelete?.name);
+          this.cancelDelete(); // Close modal
+          console.log('Fund deleted successfully');
+        },
+        error: (err) => {
+          alert('Error deleting fund');
+          console.error(err);
+        }
+      });
+  }
+
+
+  // Create Fund Logic
+
+  executeCreate(newFund: Fund): void {
+    this.http.post<Fund>('http://localhost:3000/api/funds', newFund)
+      .subscribe({
+        next: (createdFund) => {
+          // 1. Add the new fund to the local list
+          this.funds = [...this.funds, createdFund];
+          // 2. Close modal
+          this.showCreator = false;
+          console.log('Fund created successfully');
+        },
+        error: (err) => {
+          alert(err.error?.message || 'Error creating fund');
+          console.error(err);
+        }
+      });
   }
 }

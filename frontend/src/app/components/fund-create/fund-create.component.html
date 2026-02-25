@@ -1,0 +1,56 @@
+<div class="creator-container">
+  <form [formGroup]="fundForm" (ngSubmit)="submit()">
+    
+    <div class="form-group">
+      <label for="name">Fund Name <span class="required">*</span></label>
+      <input id="name" type="text" formControlName="name" placeholder="e.g. KIM Fund 4">
+      <div class="error-msg" *ngIf="fundForm.get('name')?.touched && fundForm.get('name')?.invalid">
+        Name is required.
+      </div>
+    </div>
+
+    <div class="grid-row">
+      <div class="form-group">
+        <label for="currency">Currency</label>
+        <input id="currency" type="text" formControlName="currency" placeholder="USD">
+      </div>
+
+      <div class="form-group">
+        <label for="fundSize">Fund Size (Millions)</label>
+        <input id="fundSize" type="number" formControlName="fundSize">
+      </div>
+    </div>
+
+    <div class="grid-row">
+      <div class="form-group">
+        <label for="vintage">Vintage Year</label>
+        <input id="vintage" type="number" formControlName="vintage">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="strategies">Strategies (comma separated)</label>
+      <input id="strategies" type="text" formControlName="strategies" placeholder="Hedge Fund, Private Equity">
+    </div>
+
+    <div class="form-group">
+      <label for="geographies">Geographies (comma separated)</label>
+      <input id="geographies" type="text" formControlName="geographies" placeholder="Global, Europe, USA">
+    </div>
+
+    <div class="form-group">
+      <label for="managers">Managers (comma separated)</label>
+      <input id="managers" type="text" formControlName="managers" placeholder="John Doe, Jane Smith">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" rows="3" placeholder="Enter fund details..."></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn-secondary" (click)="onCancel.emit()">Cancel</button>
+      <button type="submit" class="btn-primary" [disabled]="fundForm.invalid">Create Fund</button>
+    </div>
+  </form>
+</div>

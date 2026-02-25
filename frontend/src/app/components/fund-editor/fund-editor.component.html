@@ -1,0 +1,43 @@
+<div class="editor-container" *ngIf="fund">
+  <h3>Editing: {{ fund.name }}</h3>
+
+  <form [formGroup]="fundForm" (ngSubmit)="save()">
+    <div class="grid-row">
+      <label>Fund Name:
+        <input type="text" formControlName="name">
+      </label>
+
+      <label>Currency:
+        <input type="text" formControlName="currency">
+      </label>
+    </div>
+
+    <div class="grid-row">
+      <label>Fund Size (M):
+        <input type="number" formControlName="fundSize">
+      </label>
+
+      <label>Vintage:
+        <input type="number" formControlName="vintage">
+      </label>
+    </div>
+
+    <label>Strategies (comma separated):
+      <input type="text" formControlName="strategies">
+    </label>
+
+    <label>Geographies (comma separated):
+      <input type="text" formControlName="geographies">
+    </label>
+
+    <label>Managers (comma separated):
+      <input type="text" formControlName="managers">
+    </label>
+
+    <label>Description:
+      <textarea formControlName="description" rows="4"></textarea>
+    </label>
+
+    <button type="submit" [disabled]="fundForm.invalid">Update Fund</button>
+  </form>
+</div>
