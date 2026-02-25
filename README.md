@@ -53,4 +53,4 @@ You are expected to create at least **three components**:
 ### Notes
 - Name: Pedro Fernando de Mattos Baptista
 - Email: pedrofmattosb@gmail.com
-- Message: Thanks so much for the opportunity so far, 
+- Message: Thanks so much for the opportunity so far, to make it easier for you you can see the final result without cloning the repository at: https://elaborate-mooncake-a4f11a.netlify.app/index
