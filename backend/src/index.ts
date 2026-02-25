@@ -27,18 +27,26 @@ const db = new JsonDB(
 
 async function initDB() {
   try {
-    // 1. Check if the "/funds" path already has data
-    const dataExists = await db.exists("/funds");
+    // 1. Try to fetch existing data
+    let existingFunds: Fund[] = [];
+    
+    try {
+      existingFunds = await db.getData("/funds");
+    } catch (error) {
+      // This error usually means the path "/funds" doesn't exist yet
+      existingFunds = [];
+    }
 
-    if (!dataExists) {
-      // 2. Only push if the database is empty
-      await db.push("/funds", fundsData);
-      console.log("Database seeded with initial data.");
+    // 2. STRICT CHECK: Only seed if it is NOT an array OR the length is 0
+    if (!Array.isArray(existingFunds) || existingFunds.length === 0) {
+      console.log("Database is empty. Seeding initial data...");
+      await db.push("/funds", fundsData, true);
     } else {
-      console.log("Database already contains data, skipping initialization.");
+      // 3. If length > 0, we do nothing.
+      console.log(`Database already has ${existingFunds.length} entries. Skipping seed.`);
     }
   } catch (error) {
-    console.error("Error initializing database:", error);
+    console.error("Critical error during DB init:", error);
   }
 }
 

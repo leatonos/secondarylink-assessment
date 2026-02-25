@@ -3,7 +3,7 @@
 ## Start the application:
 Run below scripts
 ```
-npm run tsc
+npm run build
 npm run start
 ```
 

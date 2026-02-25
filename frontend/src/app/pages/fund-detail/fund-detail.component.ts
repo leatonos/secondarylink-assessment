@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import type { Fund } from '../../models/fund.model';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-fund-detail',
@@ -42,7 +44,7 @@ export class FundDetailComponent implements OnInit {
     
     // 2. Call the new specific endpoint: /api/funds/:name
     // Use encodeURIComponent to handle spaces/special characters safely
-    this.http.get<Fund>(`http://localhost:3000/api/funds/${encodeURIComponent(name)}`)
+    this.http.get<Fund>(`${environment.apiUrl}/api/funds/${encodeURIComponent(name)}`)
       .subscribe({
         next: (data) => {
           this.fund = data;
