@@ -3,10 +3,10 @@
 <div *ngIf="error">{{ error }}</div>
 
 <!-- Page Size Control -->
-<div *ngIf="!loading && !error">
+<div *ngIf="!loading && !error" class="header-actions">
 
   <div class="controls">
-    <p>Total funds: {{ funds.length }}</p>
+    <p>Total funds: <strong>{{ funds.length }}</strong></p>
 
     <label for="pageSizeSelect">Rows per page:</label>
     <select id="pageSizeSelect"
@@ -18,19 +18,67 @@
     </select>
   </div>
 
-  <div class="filters">
-    <input placeholder="Search by Name" [(ngModel)]="filterName" (ngModelChange)="currentPage = 1"/>
-    <input placeholder="Filter Currency" [(ngModel)]="filterCurrency" />
-    <input placeholder="Filter Vintage" [(ngModel)]="filterVintage" />
-    <input placeholder="Filter Strategy" [(ngModel)]="filterStrategy" />
-    <input placeholder="Filter Manager" [(ngModel)]="filterManager" />
-  </div>
+  <button class="create-btn" (click)="showCreator = true">
+    + Create New Fund
+  </button>
 
 </div>
 
-<button class="create-btn" (click)="showCreator = true">
-  + Create New Fund
-</button>
+
+
+  <div class="filters">
+  <h3>Filters</h3>
+
+  <div class="filter-group">
+    <label for="searchName">Fund Name</label>
+    <input 
+      id="searchName"
+      placeholder="Search by Name..." 
+      [(ngModel)]="filterName" 
+      (ngModelChange)="currentPage = 1"
+    />
+  </div>
+
+  <div class="filter-group">
+    <label for="filterCurrency">Currency</label>
+    <input 
+      id="filterCurrency"
+      placeholder="e.g. USD, EUR" 
+      [(ngModel)]="filterCurrency" 
+    />
+  </div>
+
+  <div class="filter-group">
+    <label for="filterVintage">Vintage Year</label>
+    <input 
+      id="filterVintage"
+      type="number"
+      placeholder="e.g. 2021" 
+      [(ngModel)]="filterVintage" 
+    />
+  </div>
+
+  <div class="filter-group">
+    <label for="filterStrategy">Strategy</label>
+    <input 
+      id="filterStrategy"
+      placeholder="e.g. Buyout" 
+      [(ngModel)]="filterStrategy" 
+    />
+  </div>
+
+  <div class="filter-group">
+    <label for="filterManager">Manager</label>
+    <input 
+      id="filterManager"
+      placeholder="Search Manager..." 
+      [(ngModel)]="filterManager" 
+    />
+  </div>
+</div>
+
+
+
 
 <!-- Table -->
 <div class="table-wrapper">

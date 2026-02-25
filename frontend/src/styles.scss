@@ -58,13 +58,25 @@ h2,h3,h4,h5,p,a,li,tr,td,label{
 ========================================= */
 
 
+/* Container for the controls and the button */
+.header-actions {
+  display: flex;
+  justify-content: space-between; /* Pushes content to the edges */
+  align-items: center;           /* Centers items vertically */
+  width: 100%;
+  margin-bottom: 1rem;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Keeps the text and dropdown grouped together on the left */
 .controls {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
   align-items: center;
+  gap: 1rem;
 }
 
 .controls p {
@@ -93,12 +105,336 @@ input:focus {
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
 }
 
-.filters input {
-  min-width: 180px;
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.filter-group input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* =========================================
+   ICON BUTTONS
+========================================= */
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(0, 101, 165, 0.1);
+}
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.pagination {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.pagination button {
+  background: $primary-dark;
+  color: $white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: $primary-accent;
+}
+
+.pagination button:disabled {
+  background: #a0b8c7;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MODALS
+========================================= */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); // dim background
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem; // keeps small screens comfortable
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background: $white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0, 50, 75, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  h2, h3 {
+    color: $primary-dark;
+    margin: 0;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: $primary-dark;
+    line-height: 1;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $primary-accent;
+    }
+  }
+}
+
+/* Actions inside modals */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-primary {
+  background: $primary-accent;
+  color: $white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary,
+.cancel-btn {
+  background: #f4f8fb;
+  color: $primary-dark;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $light-bg;
+  }
+}
+
+.delete-btn {
+  background: #e53935; // red
+  color: $white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: darken(#e53935, 10%);
+  }
+}
+
+.warning-text {
+  color: #e53935;
+  font-weight: bold;
+  margin: 0.5rem 0 1rem 0;
+  text-align: center;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* =========================================
+   COLOR VARIABLES
+========================================= */
+
+$primary-dark: #00324b;
+$primary-accent: #0065A5;
+$white: #ffffff;
+$light-bg: #f4f8fb;
+$border-color: #d6e2ec;
+
+/* =========================================
+   GLOBAL WRAPPER
+========================================= */
+
+:host {
+  display: block;
+  padding: 2rem;
+  background: $light-bg;
+  min-height: 100vh;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: $primary-dark;
+
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+/** ========================================
+    FONTS
+========================================== */
+
+h1 {
+    font-size: 3.125rem;
+    color: var(--gray-900);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+}
+
+h2,h3,h4,h5,p,a,li,tr,td,label{
+     font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+}
+
+
+/* =========================================
+   HEADER / CONTROLS
+========================================= */
+
+.header-actions {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;           
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.controls p {
+  font-weight: 600;
+}
+
+select,
+input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+select:focus,
+input:focus {
+  border-color: $primary-accent;
+  box-shadow: 0 0 0 2px rgba(0, 101, 165, 0.15);
+}
+
+/* =========================================
+   FILTERS
+========================================= */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.filter-group input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 /* =========================================
@@ -306,5 +642,22 @@ input:focus {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .filters {
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .filter-group {
+    /* On small phones, filters stack fully */
+    flex: 1 1 100%; 
+  }
+  
+  h3 {
+    width: 100%; /* Ensures the "Filters" heading stays on its own line */
+    margin-bottom: 0.5rem;
   }
 }
